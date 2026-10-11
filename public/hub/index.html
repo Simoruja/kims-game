@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- the home page is served at /; relative links resolve inside this folder -->
+<base href="/hub/">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Asita's Games</title>
+<meta name="description" content="Asita's Games: memory games for phones, tablets and computers. Play Asita's Game, a rendition of Kim's game, or Asita's Match, a card matching game against the clock.">
+<meta name="theme-color" content="#f7f4ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141824" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Asita's Games">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="icon" href="/shared/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/shared/icon-180.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hub.css">
+<link rel="stylesheet" href="/shared/lobby3d.css">
+</head>
+<body>
+<script src="/shared/lobby3d.js"></script>
+<div class="wrap">
+  <header class="hub-head">
+    <div class="eyebrow">Memory games</div>
+    <h1>Asita's <em>Games</em></h1>
+    <p class="lead">Two games that put your memory to the test. Study a tray of objects and spot what has changed, or find every matching pair against the clock. Play on a phone, tablet or computer.</p>
+  </header>
+
+  <main class="games">
+    <article class="game-card">
+        <div class="hero3d" aria-hidden="true">
+          <div class="scene"><div class="sway">
+            <div class="tray">
+              <span class="sh" style="--x:18%;--y:32%;--d:0s"></span><span class="obj" style="--x:18%;--y:32%;--d:0s"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-apple"/></svg></span>
+              <span class="sh" style="--x:50%;--y:26%;--d:-1.2s"></span><span class="obj" style="--x:50%;--y:26%;--d:-1.2s"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-number"/></svg></span>
+              <span class="sh" style="--x:82%;--y:32%;--d:-2.4s"></span><span class="obj" style="--x:82%;--y:32%;--d:-2.4s"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-cards"/></svg></span>
+              <span class="sh" style="--x:34%;--y:84%;--d:-0.6s"></span><span class="obj" style="--x:34%;--y:84%;--d:-0.6s"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-shapes"/></svg></span>
+              <span class="sh" style="--x:66%;--y:84%;--d:-1.8s"></span><span class="obj" style="--x:66%;--y:84%;--d:-1.8s"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-letter"/></svg></span>
+            </div>
+            <span class="scan"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-magnifier"/></svg></span>
+          </div></div>
+        </div>
+      <div class="gc-body">
+        <div class="eyebrow">A rendition of Kim's game</div>
+        <h2>Asita's <em>Game</em></h2>
+        <p class="gc-text">Study a tray of objects before the time runs out. Then spot what was taken away, or pick out everything you saw.</p>
+        <ul class="chips">
+          <li><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-magnifier"/></svg>What's missing?</li>
+          <li><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-bulb"/></svg>Recall the tray</li>
+          <li><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-custom"/></svg>Custom games</li>
+        </ul>
+        <p class="best" id="bestGame">No games played on this device yet.</p>
+        <a class="play" href="/game">Play Asita's Game</a>
+      </div>
+    </article>
+
+    <article class="game-card">
+        <div class="hero3d" aria-hidden="true">
+          <div class="scene"><div class="sway">
+            <div class="table">
+              <span class="hc pair" style="--d:0s"><span class="hc-in"><span class="hc-back"></span><span class="hc-face"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-apple"/></svg></span></span></span>
+              <span class="hc" style="--d:-2.5s"><span class="hc-in"><span class="hc-back"></span><span class="hc-face"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-number"/></svg></span></span></span>
+              <span class="hc" style="--d:-7.5s"><span class="hc-in"><span class="hc-back"></span><span class="hc-face"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-star"/></svg></span></span></span>
+              <span class="hc" style="--d:-5s"><span class="hc-in"><span class="hc-back"></span><span class="hc-face"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-cards"/></svg></span></span></span>
+              <span class="hc" style="--d:-4.4s"><span class="hc-in"><span class="hc-back"></span><span class="hc-face"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-cards"/></svg></span></span></span>
+              <span class="hc" style="--d:-6.9s"><span class="hc-in"><span class="hc-back"></span><span class="hc-face"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-star"/></svg></span></span></span>
+              <span class="hc pair" style="--d:-9.4s"><span class="hc-in"><span class="hc-back"></span><span class="hc-face"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-apple"/></svg></span></span></span>
+              <span class="hc" style="--d:-1.9s"><span class="hc-in"><span class="hc-back"></span><span class="hc-face"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-number"/></svg></span></span></span>
+            </div>
+            <span class="watch"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-stopwatch"/></svg></span>
+          </div></div>
+        </div>
+      <div class="gc-body">
+        <div class="eyebrow">A card matching game</div>
+        <h2>Asita's <em>Match</em></h2>
+        <p class="gc-text">All the cards lie face down. Turn over two at a time and find every pair. The clock is running, so see how fast you can clear the table.</p>
+        <ul class="chips">
+          <li><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-board4"/></svg>4 × 4 to 8 × 8</li>
+          <li><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-stopwatch"/></svg>Timed rounds</li>
+          <li><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-custom"/></svg>Custom boards</li>
+        </ul>
+        <p class="best" id="bestMatch">No rounds played on this device yet.</p>
+        <a class="play" href="/match">Play Asita's Match</a>
+      </div>
+    </article>
+  </main>
+
+  <section class="features" aria-label="About the games">
+    <div class="feature"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-shapes"/></svg><div><h3>New objects every round</h3><p>Pictures, shapes, numbers, letters and playing cards, mixed differently each time.</p></div></div>
+    <div class="feature"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-hard"/></svg><div><h3>Easy to hard</h3><p>Pick a level, or set up your own game with as many objects or cards as you like.</p></div></div>
+    <div class="feature"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-star"/></svg><div><h3>Your best scores</h3><p>Best scores and times are saved on this device, so you can try to beat them.</p></div></div>
+  </section>
+
+  <footer class="hub-foot">
+    <p>Also here: <a href="/classic">the original Kim's Game</a>.</p>
+  </footer>
+</div>
+<script src="hub.js"></script>
+</body>
+</html>

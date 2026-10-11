@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a3350"/><stop offset="1" stop-color="#141824"/></linearGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#ece5d6"/></linearGradient>
+    <linearGradient id="back" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a4766"/><stop offset="1" stop-color="#1c2233"/></linearGradient>
+    <radialGradient id="apple" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#ff9c8f"/><stop offset=".45" stop-color="#e8402f"/><stop offset="1" stop-color="#8f1913"/></radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <!-- a face-down card behind, a face-up card in front -->
+  <g transform="rotate(-12 200 270)">
+    <rect x="96" y="120" width="210" height="290" rx="26" fill="#0d1018"/>
+    <rect x="86" y="108" width="210" height="290" rx="26" fill="url(#back)"/>
+    <rect x="108" y="130" width="166" height="246" rx="16" fill="none" stroke="#c49030" stroke-width="7"/>
+    <path d="M108 130l166 246M274 130L108 376" stroke="#c49030" stroke-opacity=".45" stroke-width="5"/>
+  </g>
+  <g transform="rotate(9 320 270)">
+    <rect x="226" y="122" width="210" height="290" rx="26" fill="#a39b8b"/>
+    <rect x="216" y="110" width="210" height="290" rx="26" fill="url(#paper)"/>
+    <path d="M321 178c-14-10-38-8-46 15-7 24 6 57 26 64 7 3 12 1 20-2 7 3 12 5 19 2 20-7 33-40 26-64-8-23-31-25-45-15z" fill="url(#apple)"/>
+    <ellipse cx="297" cy="200" rx="9" ry="15" fill="#fff" opacity=".5" transform="rotate(-22 297 200)"/>
+    <path d="M321 180c-1-11 2-19 8-25" stroke="#6b3e1d" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <path d="M329 164c8-14 25-16 34-9-7 12-23 18-34 9z" fill="#3fa34d"/>
+    <text x="321" y="352" text-anchor="middle" font-family="Georgia, serif" font-size="64" font-weight="700" fill="#9a6f28">A</text>
+  </g>
+</svg>

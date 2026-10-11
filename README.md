@@ -1,17 +1,27 @@
-# Kim's Game
+# Asita's Games
 
-A browser-based memory game inspired by the classic "Kim's Game" observation exercise, built with Next.js, TypeScript, and Tailwind CSS.
+A small games platform with memory games you can play in the browser on phones, tablets, laptops and desktop computers.
 
-## How to play
+| Page | URL | What it is |
+|---|---|---|
+| Home | `/` | Choose a game. Shows your best score and times saved on this device. |
+| Asita's Game | `/game` | A rendition of Kim's game. Study a tray of objects, then spot what was taken away or pick out everything you saw. Easy, Medium, Hard or a Custom game. |
+| Asita's Match | `/match` | A card matching game against the clock. Boards from 4 × 4 to 8 × 8, or any custom size. |
+| Kim's Game (original) | `/classic` | The first version of Kim's Game: study a tray, then tap every object that's new. |
 
-1. Study a tray of objects for a few seconds.
-2. The tray changes — some objects stay, a few are swapped for new ones.
-3. Tap every object that's **new**.
-4. After each round, see exactly what you got right and wrong, plus your running score.
+Each game has a bar at the top that links back to the home page and across to the other game. The whole site installs as one app ("Asita's Games") when added to a home screen.
 
-Every round draws from a different category — emoji, shapes, numbers, letters, or colors — and the specific objects are randomized each time, so no two rounds (or games) look the same.
+## How it's built
 
-Fully responsive: works on phones, tablets, laptops, and desktops.
+- The project is a Next.js app, so Vercel builds and deploys it as before.
+- The home page and the two games are plain HTML, CSS and JavaScript in `public/`:
+  - `public/hub/`: the home page
+  - `public/game/`: Asita's Game
+  - `public/match/`: Asita's Match
+  - `public/shared/`: shared by all three: the 3D icons and scenes (`lobby3d.js`, `lobby3d.css`), the navigation bar (`platform.css`) and the app icon
+- `next.config.ts` rewrites `/`, `/game` and `/match` to those pages. Each page sets `<base href>` to its folder, so its own files load with relative links.
+- The original game is the Next.js page in `src/app/classic/`, built with TypeScript and Tailwind CSS. `src/app/manifest.ts` is the manifest for the whole site.
+- The games save settings and best scores in the browser's local storage (`kims-*` and `match-*` keys). Nothing is sent to a server.
 
 ## Development
 
@@ -26,4 +36,5 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ```bash
 npm run build
+npm start
 ```

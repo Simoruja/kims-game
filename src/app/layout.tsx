@@ -13,10 +13,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Kim's Game",
+  title: { default: "Asita's Games", template: "%s · Asita's Games" },
   description:
-    "A memory game that tests how well you can spot what's new in a tray of emoji, shapes, numbers, letters, and colors.",
+    "Memory games for phones, tablets and computers: Asita's Game, Asita's Match and the original Kim's Game.",
   manifest: "/manifest.webmanifest",
+  icons: { icon: "/shared/icon.svg", apple: "/shared/icon-180.png" },
 };
 
 export const viewport: Viewport = {

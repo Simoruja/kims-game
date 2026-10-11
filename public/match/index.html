@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- the page is served at /match; relative links resolve inside its folder -->
+<base href="/match/">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Asita's Match</title>
+<meta name="description" content="Asita's Match: a card matching game. Turn over two cards at a time, find every pair and beat your best time. Plays on phones, tablets and computers.">
+<meta name="theme-color" content="#f7f4ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141824" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Asita's Match">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="icon" href="/shared/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/shared/icon-180.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="/shared/lobby3d.css">
+<link rel="stylesheet" href="/shared/platform.css">
+</head>
+<body>
+<script src="/shared/lobby3d.js"></script>
+<div class="wrap">
+  <header id="siteHeader">
+    <nav class="platform-bar" aria-label="Asita's Games">
+      <a class="pb-home" href="/"><span aria-hidden="true">←</span> All games</a>
+      <a class="pb-switch" href="/game"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-magnifier"/></svg>Play Asita's Game</a>
+    </nav>
+    <div class="eyebrow">A card matching game</div>
+    <h1>Asita's <em>Match</em></h1>
+    <p class="lead">All the cards lie face down on the table. Turn over two at a time and find every matching pair. The clock is running, so see how fast you can clear the table.</p>
+  </header>
+
+  <!-- SETUP -->
+  <section class="panel" id="setup">
+    <!-- cards on a table in 3D, pairs turning over; purely decorative -->
+    <div class="hero3d" aria-hidden="true">
+      <div class="scene"><div class="sway">
+        <div class="table">
+          <span class="hc pair" style="--d:0s"><span class="hc-in"><span class="hc-back"></span><span class="hc-face"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-apple"/></svg></span></span></span>
+          <span class="hc" style="--d:-2.5s"><span class="hc-in"><span class="hc-back"></span><span class="hc-face"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-number"/></svg></span></span></span>
+          <span class="hc" style="--d:-7.5s"><span class="hc-in"><span class="hc-back"></span><span class="hc-face"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-star"/></svg></span></span></span>
+          <span class="hc" style="--d:-5s"><span class="hc-in"><span class="hc-back"></span><span class="hc-face"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-cards"/></svg></span></span></span>
+          <span class="hc" style="--d:-4.4s"><span class="hc-in"><span class="hc-back"></span><span class="hc-face"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-cards"/></svg></span></span></span>
+          <span class="hc" style="--d:-6.9s"><span class="hc-in"><span class="hc-back"></span><span class="hc-face"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-star"/></svg></span></span></span>
+          <span class="hc pair" style="--d:-9.4s"><span class="hc-in"><span class="hc-back"></span><span class="hc-face"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-apple"/></svg></span></span></span>
+          <span class="hc" style="--d:-1.9s"><span class="hc-in"><span class="hc-back"></span><span class="hc-face"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-number"/></svg></span></span></span>
+        </div>
+        <span class="watch"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-stopwatch"/></svg></span>
+      </div></div>
+    </div>
+    <h2>Set up a round</h2>
+    <div class="settings">
+      <fieldset class="field">
+        <legend class="title">Board size</legend>
+        <div class="seg tiles" id="sizeSeg">
+          <input type="radio" name="size" id="s4" value="4x4" checked><label for="s4"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-board4"/></svg>4 × 4<small>8 pairs</small></label>
+          <input type="radio" name="size" id="s5" value="5x5"><label for="s5"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-board5"/></svg>5 × 5<small>12 pairs</small></label>
+          <input type="radio" name="size" id="s6" value="6x6"><label for="s6"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-board6"/></svg>6 × 6<small>18 pairs</small></label>
+          <input type="radio" name="size" id="s7" value="7x7"><label for="s7"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-board7"/></svg>7 × 7<small>24 pairs</small></label>
+          <input type="radio" name="size" id="s8" value="8x8"><label for="s8"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-board8"/></svg>8 × 8<small>32 pairs</small></label>
+          <input type="radio" name="size" id="sc" value="custom"><label for="sc"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-custom"/></svg>Custom<small>Your size</small></label>
+        </div>
+        <p class="hint" id="sizeHint"></p>
+      </fieldset>
+
+      <fieldset class="field custom" id="customField" hidden>
+        <legend class="title">Custom board</legend>
+        <div class="steppers">
+          <div class="stepper">
+            <label for="c-rows">Rows</label>
+            <div class="stepper-ctl">
+              <button type="button" class="step" data-for="c-rows" data-step="-1" aria-label="Fewer rows">−</button>
+              <input type="number" id="c-rows" inputmode="numeric" pattern="[0-9]*" step="1" min="2" max="8">
+              <button type="button" class="step" data-for="c-rows" data-step="1" aria-label="More rows">+</button>
+            </div>
+          </div>
+          <div class="stepper">
+            <label for="c-cols">Columns</label>
+            <div class="stepper-ctl">
+              <button type="button" class="step" data-for="c-cols" data-step="-1" aria-label="Fewer columns">−</button>
+              <input type="number" id="c-cols" inputmode="numeric" pattern="[0-9]*" step="1" min="2" max="8">
+              <button type="button" class="step" data-for="c-cols" data-step="1" aria-label="More columns">+</button>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend class="title">Objects on the cards</legend>
+        <div class="seg tiles" id="catSeg"></div>
+        <p class="hint" id="catHint"></p>
+      </fieldset>
+    </div>
+    <div class="actions"><button class="btn" id="startBtn" type="button" aria-describedby="catHint">Deal the cards</button></div>
+    <p class="best-line" id="bestLine"></p>
+
+    <details class="rules">
+      <summary>How to play</summary>
+      <ol>
+        <li>Choose a board size. A 4 × 4 board has 16 cards (8 pairs) and an 8 × 8 board has 64 cards (32 pairs). Custom lets you choose any number of rows and columns from 2 to 8.</li>
+        <li>If the board has an odd number of spaces, as 5 × 5 and 7 × 7 do, the middle space is a free ★ space with no card on it.</li>
+        <li>Tap a card to turn it over, then tap a second card. If the two match, they stay face up. If not, they turn back over, so try to remember where they were.</li>
+        <li>The timer starts on your first tap and stops when you find the last pair. Each try at a pair counts as one move.</li>
+        <li>You can pause at any time. The board is hidden while the game is paused.</li>
+        <li>On a keyboard, use the arrow keys to move between cards, Enter or Space to turn one over and Esc to pause.</li>
+        <li>Each round deals objects you didn't have in the last round, where there are enough to choose from. Your best time for every board size is saved on this device.</li>
+      </ol>
+    </details>
+  </section>
+
+  <!-- PLAY -->
+  <section class="panel play" id="play" hidden>
+    <div class="hud" id="hud">
+      <div class="hud-item"><span class="k">Time</span><span class="v mono" id="hudTime">0:00.0</span></div>
+      <div class="hud-item"><span class="k">Pairs</span><span class="v"><span id="hudPairs">0</span>/<span id="hudTotal">8</span></span></div>
+      <div class="hud-item"><span class="k">Moves</span><span class="v" id="hudMoves">0</span></div>
+    </div>
+    <p class="status" id="status" aria-live="polite">The timer starts on your first tap.</p>
+    <div class="board-wrap" id="boardWrap">
+      <div class="board" id="board" role="group" aria-label="Cards on the table"></div>
+      <div class="paused" id="pausedCover" hidden>
+        <div class="big">Paused</div>
+        <p>The cards are hidden while the game is paused.</p>
+        <button class="btn" id="resumeBtn" type="button">Resume</button>
+      </div>
+    </div>
+    <div class="actions play-actions" id="playActions">
+      <button class="btn ghost" id="pauseBtn" type="button">Pause</button>
+      <button class="btn ghost" id="restartBtn" type="button">New deal</button>
+      <button class="btn ghost" id="quitBtn" type="button">Quit</button>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="panel" id="results" hidden>
+    <h2 class="center" id="resultTitle" tabindex="-1">Table cleared!</h2>
+    <div class="final">
+      <div class="score mono" id="finalTime">0:00.0</div>
+      <p id="finalMsg"></p>
+    </div>
+    <div class="stats" id="finalStats"></div>
+    <div class="actions">
+      <button class="btn" id="againBtn" type="button">Play again</button>
+      <button class="btn ghost" id="setupBtn" type="button">Change board</button>
+    </div>
+    <h3 class="sub">Your rounds</h3>
+    <div class="table-wrap"><table class="rounds" id="roundsTable"></table></div>
+  </section>
+</div>
+<div class="sr-only" id="announcer" aria-live="polite"></div>
+<script src="game.js"></script>
+</body>
+</html>
