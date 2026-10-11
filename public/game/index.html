@@ -56,18 +56,18 @@
       <fieldset class="field">
         <legend class="title">Mode</legend>
         <div class="seg tiles two">
-          <input type="radio" name="mode" id="m-missing" value="missing" checked><label for="m-missing"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-magnifier"/></svg>What's missing?<small>Spot what was taken</small></label>
-          <input type="radio" name="mode" id="m-recall" value="recall"><label for="m-recall"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-bulb"/></svg>Recall the tray<small>Pick what you saw</small></label>
+          <input type="radio" name="mode" id="m-missing" value="missing" checked><label for="m-missing"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-magnifier"/></svg>What's missing?<small><span class="sr-only">, </span>Spot what was taken</small></label>
+          <input type="radio" name="mode" id="m-recall" value="recall"><label for="m-recall"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-bulb"/></svg>Recall the tray<small><span class="sr-only">, </span>Pick what you saw</small></label>
         </div>
         <p class="hint" id="modeHint"></p>
       </fieldset>
       <fieldset class="field">
         <legend class="title">Difficulty</legend>
-        <div class="seg tiles">
-          <input type="radio" name="diff" id="d-easy" value="easy" checked><label for="d-easy"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-easy"/></svg>Easy<small>8 objects</small></label>
-          <input type="radio" name="diff" id="d-medium" value="medium"><label for="d-medium"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-medium"/></svg>Medium<small>12 objects</small></label>
-          <input type="radio" name="diff" id="d-hard" value="hard"><label for="d-hard"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-hard"/></svg>Hard<small>16 objects</small></label>
-          <input type="radio" name="diff" id="d-custom" value="custom"><label for="d-custom"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-custom"/></svg>Custom<small>Your choice</small></label>
+        <div class="seg tiles two">
+          <input type="radio" name="diff" id="d-easy" value="easy" checked><label for="d-easy"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-easy"/></svg>Easy<small><span class="sr-only">, </span>8 objects</small></label>
+          <input type="radio" name="diff" id="d-medium" value="medium"><label for="d-medium"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-medium"/></svg>Medium<small><span class="sr-only">, </span>12 objects</small></label>
+          <input type="radio" name="diff" id="d-hard" value="hard"><label for="d-hard"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-hard"/></svg>Hard<small><span class="sr-only">, </span>16 objects</small></label>
+          <input type="radio" name="diff" id="d-custom" value="custom"><label for="d-custom"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-custom"/></svg>Custom<small><span class="sr-only">, </span>Your choice</small></label>
         </div>
         <p class="hint" id="diffHint"></p>
       </fieldset>
@@ -117,7 +117,7 @@
           <input type="radio" name="rounds" id="r10" value="10"><label for="r10">10</label>
         </div>
       </fieldset>
-      <fieldset class="field">
+      <fieldset class="field wide">
         <legend class="title">Objects</legend>
         <div class="seg tiles" id="catSeg"></div>
         <p class="hint" id="catHint"></p>

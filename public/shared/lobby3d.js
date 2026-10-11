@@ -125,12 +125,13 @@
       `<path d="${gear(32, 31, 9, 21, 16)}" fill="url(#i3g-gold)"/>` +
       `<circle cx="32" cy="31" r="8.5" fill="#6b5320"/>` +
       `<circle cx="32" cy="31" r="7" fill="url(#i3g-hole)"/>` +
-      `<path d="M19 22a16 16 0 0 1 10-8" stroke="#fff" stroke-width="2.6" stroke-linecap="round" fill="none" opacity=".6"/>`,
+      `<path d="M20.7 26.9a12 12 0 0 1 7.2-7.2" stroke="#fff" stroke-width="2.6" stroke-linecap="round" fill="none" opacity=".6"/>`,
 
     // ── Asita's Match ──
     stopwatch: shadow(32, 59, 18) +
+      `<rect x="30.5" y="9" width="3" height="4" fill="#7a8293"/>` +
       `<rect x="28" y="4.5" width="8" height="6" rx="2" fill="url(#i3g-metal)"/>` +
-      `<path d="M45 12.5l4 -4" stroke="#7a8293" stroke-width="4" stroke-linecap="round"/>` +
+      `<path d="M44 15.5l4.5-4.5" stroke="#7a8293" stroke-width="4" stroke-linecap="round"/>` +
       `<circle cx="32.8" cy="34.8" r="21" fill="#7b8292"/>` +
       `<circle cx="32" cy="33" r="21" fill="url(#i3g-metal)"/>` +
       `<circle cx="32" cy="33" r="16.5" fill="url(#i3g-paper)"/>` +
@@ -197,8 +198,23 @@
         const dx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (window.innerWidth / 2)));
         const dy = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (window.innerHeight / 2)));
         scene.style.setProperty('--ry', (dx * 9).toFixed(2) + 'deg');
-        scene.style.setProperty('--rx', (-dy * 6).toFixed(2) + 'deg');
+        scene.style.setProperty('--rx', Math.max(-2, Math.min(4, -dy * 4)).toFixed(2) + 'deg');
       }
     });
   }, { passive: true });
+  const level = () => document.querySelectorAll('.hero3d .scene').forEach(s => { s.style.setProperty('--rx', '0deg'); s.style.setProperty('--ry', '0deg'); });
+  document.documentElement.addEventListener('pointerleave', level);
+  window.addEventListener('blur', level);
+
+  // Save battery: a scene that is scrolled out of view stops animating.
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => entries.forEach(e => e.target.classList.toggle('idle', !e.isIntersecting)));
+    document.querySelectorAll('.hero3d').forEach(h => io.observe(h));
+  }
+
+  // Keyboard: bring a tile into view when its (visually hidden) option gets focus.
+  document.addEventListener('focusin', e => {
+    const label = e.target.matches && e.target.matches('.seg.tiles input') && e.target.labels && e.target.labels[0];
+    if (label) label.scrollIntoView({ block: 'nearest' });
+  });
 })();
