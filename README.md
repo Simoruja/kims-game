@@ -7,7 +7,7 @@ A small games platform with memory and word games you can play in the browser on
 | Home | `/` | Choose a game. Shows your best score and times saved on this device. |
 | Asita's Game | `/game` | A rendition of Kim's game. Study a tray of objects, then spot what was taken away or pick out everything you saw. Easy, Medium, Hard or a Custom game. |
 | Asita's Match | `/match` | A card matching game against the clock. Boards from 4 × 4 to 8 × 8, or any custom size. |
-| Asita's Word | `/word` | Guess the hidden six-letter word in six tries. Coloured tiles show which letters are in the word and which are in the right place. A daily word that's the same for everyone, unlimited practice, hard mode, statistics and a shareable result. |
+| Asita's Word | `/word` | Guess the hidden five-letter word in six tries. Coloured tiles show which letters are in the word and which are in the right place. A daily word that's the same for everyone, unlimited practice, hard mode, statistics and a shareable result. |
 
 Each game has a bar at the top that links back to the home page and across to the other games. The whole site installs as one app ("Asita's Games") when added to a home screen.
 

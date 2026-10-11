@@ -80,7 +80,7 @@ h1 em { color: var(--gold); font-style: italic; font-weight: 400; }
   --tile: 52px; /* set from game.js to fit the space between the header and the keyboard */
   display: grid; grid-template-rows: repeat(6, var(--tile)); gap: var(--gap);
 }
-.row { display: grid; grid-template-columns: repeat(6, var(--tile)); gap: var(--gap); }
+.row { display: grid; grid-template-columns: repeat(5, var(--tile)); gap: var(--gap); }
 .row.shake { animation: shake .45s ease; }
 .tile {
   position: relative; display: grid; place-items: center;
@@ -170,8 +170,12 @@ h3.sub { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; colo
   .board-area { align-self: stretch; }
   .keyboard { flex: 1 1 0; max-width: 430px; }
   .key { height: 40px; }
-  .title-row { justify-content: flex-end; margin-top: -4px; }
+  /* the toolbar shares a line with Daily/Practice, so all six rows fit */
+  header { display: flex; flex-wrap: wrap; align-items: center; column-gap: 12px; }
+  .platform-bar { flex: 1 0 100%; }
+  .title-row { order: 3; margin: 0; }
   .title-row > div:first-child { display: none; }
+  .mode-row { order: 2; flex: 1 1 auto; margin: 0 0 6px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .tile.filled, .tile.flip, .tile.win, .row.shake, .toast { animation: none; }

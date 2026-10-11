@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const LEN = 6, TRIES = 6;
+  const LEN = 5, TRIES = 6;
   const { answers: ANSWERS, guesses: GUESSES } = window.WORDS;
   const VALID = new Set([...ANSWERS, ...GUESSES]);
   const FIRST_DAY = [2026, 9, 11];  // daily word #1 (11 October 2026), counted in the player's own time zone
@@ -113,7 +113,7 @@
   function sizeBoard() {
     const area = document.querySelector('.board-area'), gap = 6;
     const w = area.clientWidth, h = area.clientHeight - 12;
-    const tile = Math.max(24, Math.min(62, Math.floor((w - 5 * gap) / LEN), Math.floor((h - 5 * gap) / TRIES)));
+    const tile = Math.max(24, Math.min(62, Math.floor((w - (LEN - 1) * gap) / LEN), Math.floor((h - (TRIES - 1) * gap) / TRIES)));
     $('board').style.setProperty('--tile', tile + 'px');
   }
   new ResizeObserver(sizeBoard).observe(document.querySelector('.board-area'));
