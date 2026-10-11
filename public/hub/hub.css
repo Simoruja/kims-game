@@ -74,9 +74,6 @@ h1 em, h2 em { color: var(--gold); font-style: italic; font-weight: 400; }
 .feature h3 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
 .feature p { font-size: 14px; color: var(--muted); }
 
-.hub-foot { text-align: center; margin-top: 28px; font-size: 14px; color: var(--muted); }
-.hub-foot a { color: var(--gold); }
-
 @media (max-width: 520px) {
   .gc-body { padding: 16px 16px 18px; }
   .play { align-self: stretch; justify-content: center; }
