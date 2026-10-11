@@ -1,0 +1,14 @@
+{
+  "name": "Asita's Game",
+  "short_name": "Asita's Game",
+  "description": "A rendition of Kim's game: study a tray of objects, then test your memory.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7f4ee",
+  "theme_color": "#1c2233",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
