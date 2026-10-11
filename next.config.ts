@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
     { source: "/", destination: "/hub/index.html" },
     { source: "/game", destination: "/game/index.html" },
     { source: "/match", destination: "/match/index.html" },
+    { source: "/word", destination: "/word/index.html" },
   ],
   partialPrefetching: true,
 };

@@ -168,3 +168,32 @@
 .hero3d .watch .ico3d { --i3sh: 0; filter: drop-shadow(0 30px 24px rgba(0,0,0,.25)); animation: hero-tick 2s ease-in-out infinite; }
 @keyframes hero-tick { 0%, 100% { transform: rotate(-7deg) translateY(0); } 50% { transform: rotate(7deg) translateY(-6%); } }
 @media (prefers-reduced-motion: reduce) { .hero3d .hc.pair .hc-in { transform: rotateY(180deg); } }
+
+/* ── Lobby: letter tiles in 3D (Asita's Word) ── */
+.hero3d .wordboard {
+  position: absolute; left: 50%; top: 55%; width: min(78%, 360px);
+  transform: translate(-50%, -50%) rotateX(50deg); transform-style: preserve-3d;
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; padding: 14px; border-radius: 16px;
+  background: radial-gradient(110% 90% at 30% 15%, var(--tray-hi), var(--tray) 75%);
+  box-shadow: inset 0 0 0 5px var(--tray-rim), 0 18px 24px -12px rgba(0,0,0,.4);
+}
+.hero3d .wt {
+  aspect-ratio: 1; display: grid; place-items: center; border-radius: 12%;
+  font: 700 clamp(14px, 3.6vw, 24px)/1 'DM Sans', system-ui, sans-serif; color: #fff;
+  box-shadow: 0 3px 0 rgba(0,0,0,.28);
+}
+.hero3d .wt.correct { background: #3e8a62; }
+.hero3d .wt.present { background: #c49030; }
+.hero3d .wt.absent { background: #85847e; }
+/* the answer row turns over tile by tile, then starts again */
+.hero3d .wt.turn { background: var(--card, #fff); color: #1e1a12; animation: wt-turn 7s ease-in-out var(--d, 0s) infinite; }
+@keyframes wt-turn {
+  0%, 8% { transform: rotateX(0); background: var(--card, #fff); color: #1e1a12; }
+  11% { transform: rotateX(90deg); background: var(--card, #fff); color: #1e1a12; }
+  11.1% { transform: rotateX(90deg); background: #3e8a62; color: #fff; }
+  14%, 80% { transform: rotateX(0); background: #3e8a62; color: #fff; }
+  83% { transform: rotateX(90deg); background: #3e8a62; color: #fff; }
+  83.1% { transform: rotateX(90deg); background: var(--card, #fff); color: #1e1a12; }
+  86%, 100% { transform: rotateX(0); background: var(--card, #fff); color: #1e1a12; }
+}
+@media (prefers-reduced-motion: reduce) { .hero3d .wt.turn { background: #3e8a62; color: #fff; } }

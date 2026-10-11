@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Asita's Games",
     short_name: "Asita's Games",
     description:
-      "Memory games for phones, tablets and computers: Asita's Game and Asita's Match.",
+      "Memory and word games for phones, tablets and computers: Asita's Game, Asita's Match and Asita's Word.",
     start_url: "/",
     display: "standalone",
     background_color: "#f7f4ee",

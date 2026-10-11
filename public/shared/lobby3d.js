@@ -139,6 +139,13 @@
       `<path d="M32 33l8.5-7.5" stroke="#d63c2f" stroke-width="2.6" stroke-linecap="round"/>` +
       `<circle cx="32" cy="33" r="2.6" fill="#1c2233"/>` +
       `<path d="M19 26a14 14 0 0 1 9-8" stroke="#fff" stroke-width="2.6" stroke-linecap="round" fill="none" opacity=".75"/>`,
+    // three letter tiles: right place, wrong place, not in the word
+    word: shadow(32, 58, 25) +
+      [['W', 4, '#2b6e4c', 'url(#i3g-green)'], ['O', 23, '#946a1c', 'url(#i3g-gold)'], ['R', 42, '#5d5c57', 'url(#i3g-grey)']].map(([ch, x, side, face]) =>
+        `<rect x="${x}" y="${25 + 4}" width="18" height="20" rx="3.5" fill="${side}"/>` +
+        `<rect x="${x}" y="25" width="18" height="20" rx="3.5" fill="${face}"/>` +
+        `<rect x="${x + 2}" y="26.5" width="14" height="5" rx="2.5" fill="#fff" opacity=".28"/>` +
+        `<text x="${x + 9}" y="40.5" text-anchor="middle" font-size="13" font-weight="700" font-family="'DM Sans', Arial, sans-serif" fill="#fff">${ch}</text>`).join(''),
     star: shadow(32, 58, 17) +
       `<polygon points="33.5,10.5 39.6,24.4 54.7,25.8 43.3,35.8 46.6,50.6 33.5,42.9 20.4,50.6 23.7,35.8 12.3,25.8 27.4,24.4" fill="#a8740c"/>` +
       `<polygon points="32,8 38.1,21.9 53.2,23.3 41.8,33.3 45.1,48.1 32,40.4 18.9,48.1 22.2,33.3 10.8,23.3 25.9,21.9" fill="url(#i3g-gold)"/>` +
@@ -172,6 +179,8 @@
     lin('i3g-wood', [[0, '#f6e7c8'], [1, '#d9b778']], 1, 1),
     lin('i3g-cardback', [[0, '#3a4766'], [1, '#1c2233']], 1, 1),
     lin('i3g-cardface', [[0, '#ffffff'], [1, '#f1d48e']], 1, 1),
+    lin('i3g-green', [[0, '#6cc495'], [1, '#3e8a62']]),
+    lin('i3g-grey', [[0, '#b1b0aa'], [1, '#7c7b75']]),
   ].join('');
 
   const sprite =

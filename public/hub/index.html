@@ -6,7 +6,7 @@
 <base href="/hub/">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Asita's Games</title>
-<meta name="description" content="Asita's Games: memory games for phones, tablets and computers. Play Asita's Game, a rendition of Kim's game, or Asita's Match, a card matching game against the clock.">
+<meta name="description" content="Asita's Games: memory and word games for phones, tablets and computers. Play Asita's Game, a rendition of Kim's game, Asita's Match, a card matching game against the clock, or Asita's Word, a six-letter word guessing game.">
 <meta name="theme-color" content="#f7f4ee" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#141824" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -26,9 +26,9 @@
 <script src="/shared/lobby3d.js"></script>
 <div class="wrap">
   <header class="hub-head">
-    <div class="eyebrow">Memory games</div>
+    <div class="eyebrow">Memory and word games</div>
     <h1>Asita's <em>Games</em></h1>
-    <p class="lead">Two games that put your memory to the test. Study a tray of objects and spot what has changed, or find every matching pair against the clock. Play on a phone, tablet or computer.</p>
+    <p class="lead">Three games that put your memory and wits to the test. Study a tray of objects and spot what has changed, find every matching pair against the clock, or guess the hidden word in six tries. Play on a phone, tablet or computer.</p>
   </header>
 
   <main class="games">
@@ -88,10 +88,30 @@
         <a class="play" href="/match">Play Asita's Match</a>
       </div>
     </article>
+
+    <article class="game-card">
+      <div class="hero3d" aria-hidden="true">
+        <div class="scene"><div class="sway">
+          <div class="wordboard"><span class="wt absent">G</span><span class="wt present">A</span><span class="wt absent">R</span><span class="wt absent">D</span><span class="wt correct">E</span><span class="wt absent">N</span><span class="wt turn" style="--d:0.00s">M</span><span class="wt turn" style="--d:0.35s">E</span><span class="wt turn" style="--d:0.70s">M</span><span class="wt turn" style="--d:1.05s">O</span><span class="wt turn" style="--d:1.40s">R</span><span class="wt turn" style="--d:1.75s">Y</span></div>
+        </div></div>
+      </div>
+      <div class="gc-body">
+        <div class="eyebrow">A word guessing game</div>
+        <h2>Asita's <em>Word</em></h2>
+        <p class="gc-text">Guess the hidden six-letter word in six tries. After each guess the tiles show which letters are in the word, and which are in the right place.</p>
+        <ul class="chips">
+          <li><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-word"/></svg>6 letters, 6 tries</li>
+          <li><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-star"/></svg>A new daily word</li>
+          <li><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-custom"/></svg>Practice and hard mode</li>
+        </ul>
+        <p class="best" id="bestWord">No words played on this device yet.</p>
+        <a class="play" href="/word">Play Asita's Word</a>
+      </div>
+    </article>
   </main>
 
   <section class="features" aria-label="About the games">
-    <div class="feature"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-shapes"/></svg><div><h3>New objects every round</h3><p>Pictures, shapes, numbers, letters and playing cards, mixed differently each time.</p></div></div>
+    <div class="feature"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-shapes"/></svg><div><h3>New objects every round</h3><p>Pictures, shapes, numbers, letters and playing cards, mixed differently each time, and a new word every day.</p></div></div>
     <div class="feature"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-hard"/></svg><div><h3>Easy to hard</h3><p>Pick a level, or set up your own game with as many objects or cards as you like.</p></div></div>
     <div class="feature"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-star"/></svg><div><h3>Your best scores</h3><p>Best scores and times are saved on this device, so you can try to beat them.</p></div></div>
   </section>

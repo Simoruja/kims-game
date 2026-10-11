@@ -32,4 +32,13 @@
     const shown = boards.slice(0, 3).map(b => `${b.r} × ${b.c} <b>${fmt(b.time)}</b>`).join(' · ');
     document.getElementById('bestMatch').innerHTML = `Your best ${boards.length === 1 ? 'time' : 'times'}: ${shown}${boards.length > 3 ? ' …' : ''}`;
   }
+  // Asita's Word saves its statistics per mode; the daily word is the one with a streak.
+  const w = read('word-stats-daily'), wp = read('word-stats-practice');
+  const played = (w && w.played || 0) + (wp && wp.played || 0);
+  if (played > 0) {
+    const won = (w && w.won || 0) + (wp && wp.won || 0);
+    const streak = w && w.streak > 0 ? ` · daily streak <b>${w.streak}</b>` : '';
+    document.getElementById('bestWord').innerHTML =
+      `Words found: <b>${won}</b> of ${played}${streak}`;
+  }
 })();

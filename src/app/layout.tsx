@@ -3,7 +3,7 @@ import type { Metadata, Viewport } from "next";
 export const metadata: Metadata = {
   title: { default: "Asita's Games", template: "%s · Asita's Games" },
   description:
-    "Memory games for phones, tablets and computers: Asita's Game and Asita's Match.",
+    "Memory and word games for phones, tablets and computers: Asita's Game, Asita's Match and Asita's Word.",
   manifest: "/manifest.webmanifest",
   icons: { icon: "/shared/icon.svg", apple: "/shared/icon-180.png" },
 };
