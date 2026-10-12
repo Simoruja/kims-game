@@ -1,0 +1,21 @@
+/* Asita's Games: the bar at the top of each game that links back to the home page and across to the
+   other games. Uses each page's own colour tokens. */
+.platform-bar {
+  container-type: inline-size;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  margin: 0 0 18px; text-align: left;
+}
+.platform-bar a {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 6px 14px;
+  border-radius: 999px; border: 1px solid var(--border); background: var(--card);
+  color: var(--navy); font-size: 14px; font-weight: 500; text-decoration: none;
+  transition: border-color .15s ease, transform .15s ease;
+}
+.pb-others { display: inline-flex; gap: 6px; }
+.platform-bar a .ico3d { width: 26px; height: 26px; margin: -4px 0; --i3sh: 0; }
+.platform-bar a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+@media (hover: hover) { .platform-bar a:hover { border-color: var(--gold); transform: translateY(-1px); } }
+@media (max-width: 380px) { .platform-bar a { padding: 6px 10px; font-size: 13px; } }
+/* when the bar is narrow, the other games show as icons only (their names stay in aria-label) */
+@container (max-width: 640px) { .pb-name { display: none; } .pb-switch { padding: 6px 8px; } }
+@media (prefers-reduced-motion: reduce) { .platform-bar a { transition: none; } }

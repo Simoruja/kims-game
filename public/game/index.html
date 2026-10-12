@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- the page is served at /game; relative links resolve inside its folder -->
+<base href="/game/">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Asita's Game</title>
+<meta name="description" content="Asita's Game, a rendition of Kim's game: study a tray of objects, then test your memory. Plays on phones, tablets and computers.">
+<meta name="theme-color" content="#f7f4ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141824" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Asita's Game">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="icon" href="/shared/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/shared/icon-180.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="/shared/lobby3d.css">
+<link rel="stylesheet" href="/shared/platform.css">
+</head>
+<body>
+<script src="/shared/lobby3d.js"></script>
+<div class="wrap">
+  <header>
+    <nav class="platform-bar" aria-label="Asita's Games">
+      <a class="pb-home" href="/"><span aria-hidden="true">←</span> All games</a>
+      <span class="pb-others"><a class="pb-switch" href="/match" aria-label="Play Asita's Match"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-stopwatch"/></svg><span class="pb-name">Asita's Match</span></a><a class="pb-switch" href="/word" aria-label="Play Asita's Word"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-word"/></svg><span class="pb-name">Asita's Word</span></a><a class="pb-switch" href="/blocks" aria-label="Play Asita's Blocks"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-blocks"/></svg><span class="pb-name">Asita's Blocks</span></a></span>
+    </nav>
+    <div class="eyebrow">A rendition of Kim's game</div>
+    <h1>Asita's <em>Game</em></h1>
+    <p class="lead">Study the tray before time runs out. Then see how much you remember. Every round brings new objects: pictures, shapes, numbers, letters and playing cards.</p>
+  </header>
+
+  <!-- SETUP -->
+  <section class="panel" id="setup">
+    <!-- a tray of objects in 3D, purely decorative -->
+    <div class="hero3d" aria-hidden="true">
+      <div class="scene"><div class="sway">
+        <div class="tray">
+          <span class="sh" style="--x:18%;--y:32%;--d:0s"></span><span class="obj" style="--x:18%;--y:32%;--d:0s"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-apple"/></svg></span>
+          <span class="sh" style="--x:50%;--y:26%;--d:-1.2s"></span><span class="obj" style="--x:50%;--y:26%;--d:-1.2s"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-number"/></svg></span>
+          <span class="sh" style="--x:82%;--y:32%;--d:-2.4s"></span><span class="obj" style="--x:82%;--y:32%;--d:-2.4s"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-cards"/></svg></span>
+          <span class="sh" style="--x:34%;--y:84%;--d:-0.6s"></span><span class="obj" style="--x:34%;--y:84%;--d:-0.6s"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-shapes"/></svg></span>
+          <span class="sh" style="--x:66%;--y:84%;--d:-1.8s"></span><span class="obj" style="--x:66%;--y:84%;--d:-1.8s"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-letter"/></svg></span>
+        </div>
+        <span class="scan"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-magnifier"/></svg></span>
+      </div></div>
+    </div>
+    <h2>Set up a game</h2>
+    <div class="settings">
+      <fieldset class="field">
+        <legend class="title">Mode</legend>
+        <div class="seg tiles two">
+          <input type="radio" name="mode" id="m-missing" value="missing" checked><label for="m-missing"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-magnifier"/></svg>What's missing?<small><span class="sr-only">, </span>Spot what was taken</small></label>
+          <input type="radio" name="mode" id="m-recall" value="recall"><label for="m-recall"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-bulb"/></svg>Recall the tray<small><span class="sr-only">, </span>Pick what you saw</small></label>
+        </div>
+        <p class="hint" id="modeHint"></p>
+      </fieldset>
+      <fieldset class="field">
+        <legend class="title">Difficulty</legend>
+        <div class="seg tiles two">
+          <input type="radio" name="diff" id="d-easy" value="easy" checked><label for="d-easy"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-easy"/></svg>Easy<small><span class="sr-only">, </span>8 objects</small></label>
+          <input type="radio" name="diff" id="d-medium" value="medium"><label for="d-medium"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-medium"/></svg>Medium<small><span class="sr-only">, </span>12 objects</small></label>
+          <input type="radio" name="diff" id="d-hard" value="hard"><label for="d-hard"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-hard"/></svg>Hard<small><span class="sr-only">, </span>16 objects</small></label>
+          <input type="radio" name="diff" id="d-custom" value="custom"><label for="d-custom"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-custom"/></svg>Custom<small><span class="sr-only">, </span>Your choice</small></label>
+        </div>
+        <p class="hint" id="diffHint"></p>
+      </fieldset>
+      <fieldset class="field custom" id="customField" hidden>
+        <legend class="title">Custom game</legend>
+        <div class="steppers">
+          <div class="stepper">
+            <label for="c-rounds">Rounds</label>
+            <div class="stepper-ctl">
+              <button type="button" class="step" data-for="c-rounds" data-step="-1" aria-label="Fewer rounds">−</button>
+              <input type="number" id="c-rounds" inputmode="numeric" pattern="[0-9]*" step="1">
+              <button type="button" class="step" data-for="c-rounds" data-step="1" aria-label="More rounds">+</button>
+            </div>
+          </div>
+          <div class="stepper">
+            <label for="c-guess" id="c-guess-label">Objects to guess</label>
+            <div class="stepper-ctl">
+              <button type="button" class="step" data-for="c-guess" data-step="-1" aria-label="Fewer objects to guess">−</button>
+              <input type="number" id="c-guess" inputmode="numeric" pattern="[0-9]*" step="1">
+              <button type="button" class="step" data-for="c-guess" data-step="1" aria-label="More objects to guess">+</button>
+            </div>
+          </div>
+          <div class="stepper" id="c-shown-wrap">
+            <label for="c-shown">Objects on the tray</label>
+            <div class="stepper-ctl">
+              <button type="button" class="step" data-for="c-shown" data-step="-1" aria-label="Fewer objects on the tray">−</button>
+              <input type="number" id="c-shown" inputmode="numeric" pattern="[0-9]*" step="1">
+              <button type="button" class="step" data-for="c-shown" data-step="1" aria-label="More objects on the tray">+</button>
+            </div>
+          </div>
+          <div class="stepper">
+            <label for="c-study">Study time (seconds)</label>
+            <div class="stepper-ctl">
+              <button type="button" class="step" data-for="c-study" data-step="-5" aria-label="Less study time">−</button>
+              <input type="number" id="c-study" inputmode="numeric" pattern="[0-9]*" step="5">
+              <button type="button" class="step" data-for="c-study" data-step="5" aria-label="More study time">+</button>
+            </div>
+          </div>
+        </div>
+        <p class="hint" id="customHint" aria-live="polite"></p>
+      </fieldset>
+      <fieldset class="field" id="roundsField">
+        <legend class="title">Rounds</legend>
+        <div class="seg">
+          <input type="radio" name="rounds" id="r3" value="3"><label for="r3">3</label>
+          <input type="radio" name="rounds" id="r5" value="5" checked><label for="r5">5</label>
+          <input type="radio" name="rounds" id="r10" value="10"><label for="r10">10</label>
+        </div>
+      </fieldset>
+      <fieldset class="field wide">
+        <legend class="title">Objects</legend>
+        <div class="seg tiles" id="catSeg"></div>
+        <p class="hint" id="catHint"></p>
+      </fieldset>
+    </div>
+    <div class="actions"><button class="btn" id="startBtn" type="button">Start game</button></div>
+
+    <details class="rules">
+      <summary>How to play</summary>
+      <ol>
+        <li>A tray of objects appears. Memorise as many as you can before the timer runs out, or tap <b>I'm ready</b>.</li>
+        <li>The tray is covered for a moment.</li>
+        <li><b>What's missing?</b> The tray comes back with some objects removed. Pick the missing ones from the choices.</li>
+        <li><b>Recall the tray:</b> You see a larger mix of objects. Pick every one that was on the tray.</li>
+        <li><b>Custom</b> lets you choose the number of rounds, how many objects you have to guess, the size of the tray and the study time.</li>
+        <li>After each round, a scorecard shows what you got right, what you got wrong and what you missed. Each correct pick earns a point and each wrong pick loses one. A round never scores below zero.</li>
+        <li>No object appears on the tray twice in the same game.</li>
+      </ol>
+      <p>Asita's Game is a rendition of Kim's game, which gets its name from Rudyard Kipling's novel <i>Kim</i> (1901). In the novel the young hero is trained to observe this way. Scouts and guides still play it today.</p>
+    </details>
+  </section>
+
+  <!-- PLAY -->
+  <section class="panel" id="play" hidden>
+    <div class="hud">
+      <span>Round <b id="hudRound">1</b>/<b id="hudRounds">5</b></span>
+      <span id="hudMode"></span>
+      <span>Score <b id="hudScore">0</b></span>
+    </div>
+    <h2 class="phase" id="phase">Memorise</h2>
+    <p class="instr" id="instr" aria-live="polite"></p>
+    <div class="timer" id="timer"><i id="timerBar"></i></div>
+
+    <div id="trayWrap"></div>
+
+    <div id="choicesWrap" hidden>
+      <p class="instr choices-label" id="choicesLabel"></p>
+      <div class="tray" id="choices"></div>
+    </div>
+
+    <div id="scorecard" hidden></div>
+
+    <div class="actions sticky">
+      <button class="btn ghost" id="skipBtn" type="button">I'm ready</button>
+      <button class="btn" id="submitBtn" type="button" hidden disabled>Check answer</button>
+      <button class="btn" id="nextBtn" type="button" hidden>Next round</button>
+      <button class="btn ghost" id="quitBtn" type="button">Quit</button>
+    </div>
+  </section>
+
+  <!-- SUMMARY -->
+  <section class="panel" id="summary" hidden>
+    <h2 class="center">Game over</h2>
+    <div class="final">
+      <div class="score" id="finalScore">0</div>
+      <p id="finalMsg"></p>
+    </div>
+    <div class="stats" id="finalStats"></div>
+    <h3 class="sub">Round by round</h3>
+    <div class="table-wrap"><table class="rounds" id="roundsTable"></table></div>
+    <div class="actions">
+      <button class="btn" id="againBtn" type="button">Play again</button>
+      <button class="btn ghost" id="setupBtn" type="button">Change settings</button>
+    </div>
+  </section>
+</div>
+<script src="game.js"></script>
+</body>
+</html>

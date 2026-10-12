@@ -1,0 +1,228 @@
+/* Lobby screen: option tiles with 3D icons, and the base for the 3D scene at the top.
+   Shared by the home page, Asita's Game and Asita's Match. */
+
+.ico3d { display: block; width: 48px; height: 48px; overflow: visible; }
+
+/* ── Option tiles ── */
+.seg.tiles {
+  display: grid; gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 100px), 1fr));
+}
+.seg.tiles.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.seg.tiles label {
+  position: relative;
+  flex-direction: column; justify-content: center; gap: 4px;
+  min-height: 108px; padding: 12px 6px 10px; border-radius: 16px;
+  text-align: center; line-height: 1.2; font-weight: 500;
+  background: var(--card); border: 1.5px solid var(--border);
+  box-shadow: 0 1px 0 rgba(0,0,0,.04);
+  perspective: 300px;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+}
+.seg.tiles label small { display: block; font-size: 12px; font-weight: 400; color: var(--muted); }
+.seg.tiles label .ico3d {
+  width: 52px; height: 52px; margin-bottom: 2px;
+  transition: transform .25s ease, filter .2s ease, opacity .2s ease;
+}
+.seg.tiles input:checked + label {
+  background: var(--sel-bg); color: var(--text); border-color: var(--gold);
+  box-shadow: 0 10px 22px -12px rgba(28,34,51,.55), inset 0 0 0 1px var(--gold);
+  transform: translateY(-2px);
+}
+/* a quick 3D turn when a tile is chosen */
+.seg.tiles input:checked + label .ico3d { transform: scale(1.06); transition: filter .2s ease, opacity .2s ease; animation: i3-turn .55s cubic-bezier(.2, .9, .25, 1.25); }
+@keyframes i3-turn { from { transform: rotateY(0); } to { transform: rotateY(360deg) scale(1.06); } }
+.seg.tiles input:checked + label::after {
+  /* the tick is decoration: the empty alt text keeps it out of the option's spoken name */
+  content: '✓'; content: '✓' / ''; position: absolute; top: 7px; right: 9px;
+  width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center;
+  font-size: 12px; font-weight: 700; background: var(--gold); color: var(--card);
+}
+/* object kinds that are switched off look switched off */
+.seg.tiles input[type="checkbox"]:not(:checked) + label .ico3d { filter: grayscale(.85); opacity: .55; }
+.seg.tiles input[type="checkbox"]:not(:checked) + label { color: var(--muted); }
+@media (hover: hover) {
+  .seg.tiles label:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .seg.tiles input:not(:checked) + label:hover .ico3d { transform: translateY(-3px) rotateY(-18deg) rotateX(8deg); }
+}
+.seg.tiles input:focus-visible + label { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* Windows High Contrast and other forced colours: show the selection with a system colour */
+@media (forced-colors: active) {
+  .seg.tiles input:checked + label { border: 3px solid Highlight; }
+  .seg.tiles input:checked + label::after { forced-color-adjust: none; background: Highlight; color: HighlightText; }
+  .seg input:checked + label { outline: 2px solid Highlight; }
+}
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+@media (max-width: 520px) {
+  .seg.tiles { gap: 8px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 92px), 1fr)); }
+  .seg.tiles label { min-height: 96px; padding: 10px 4px 8px; font-size: 14px; }
+  .seg.tiles label .ico3d { width: 44px; height: 44px; }
+}
+
+/* ── 3D scene ── */
+.hero3d {
+  position: relative; height: clamp(110px, min(34vw, 30vh), 240px); margin: 0 0 10px;
+  perspective: 900px; perspective-origin: 50% 25%;
+  overflow: hidden; border-radius: 14px;
+  background: radial-gradient(50% 100% at 50% 0%, var(--hero-glow), transparent);
+}
+:root { --hero-glow: rgba(196,144,48,.16); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --hero-glow: rgba(232,192,96,.08); } }
+:root[data-theme="dark"] { --hero-glow: rgba(232,192,96,.08); }
+/* the pointer tilt changes only these two values; not inheriting keeps each change cheap */
+@property --rx { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@property --ry { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+/* Inside the 3D scene Chromium draws an SVG at one pixel per CSS pixel and then scales it up, which
+   looks jagged on high-density screens. So each icon there is drawn three times larger and shrunk. */
+.hero3d .obj .ico3d, .hero3d .scan .ico3d, .hero3d .watch .ico3d {
+  position: absolute; left: 0; top: 0; width: 300% !important; height: 300% !important; transform-origin: 0 0; scale: .3333;
+}
+/* a card face keeps its icon in 3D too (so the icon gets its own sharp layer); the icon then hides its
+   own back, or it would show through a face-down card */
+.hero3d .hc-face { transform-style: preserve-3d; }
+.hero3d .hc-face .ico3d { width: 234% !important; height: 234% !important; transform-origin: 0 0; scale: .3333; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+/* off screen, the scene stops animating (set from lobby3d.js) */
+.hero3d.idle, .hero3d.idle * { animation-play-state: paused !important; }
+.hero3d .scene {
+  position: absolute; inset: 0; transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .35s ease-out;
+}
+.hero3d .sway { position: absolute; inset: 0; transform-style: preserve-3d; animation: hero-sway 14s ease-in-out infinite; }
+@keyframes hero-sway { 0%, 100% { transform: rotateY(-6deg); } 50% { transform: rotateY(6deg); } }
+@keyframes hero-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9%); } }
+@keyframes hero-shadow { 0%, 100% { opacity: 1; scale: 1; } 50% { opacity: .55; scale: .8; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero3d .sway, .hero3d .sway * { animation: none !important; }
+  .hero3d .scene { transition: none; }
+  .seg.tiles label, .seg.tiles label .ico3d { transition: none; }
+  .seg.tiles input:checked + label .ico3d { transform: none; animation: none; }
+}
+
+/* ── Lobby: a tray of objects in 3D ── */
+:root { --tray: #eadfc8; --tray-hi: #fff8ea; --tray-rim: #b8915a; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --tray: #3b3526; --tray-hi: #5a5038; --tray-rim: #8a6a35; } }
+:root[data-theme="dark"] { --tray: #3b3526; --tray-hi: #5a5038; --tray-rim: #8a6a35; }
+.hero3d .tray {
+  position: absolute; left: 50%; top: 55%; width: min(88%, 540px); aspect-ratio: 2.3;
+  transform: translate(-50%, -50%) rotateX(58deg); transform-style: preserve-3d; border-radius: 22px;
+  background: radial-gradient(110% 90% at 30% 15%, var(--tray-hi), var(--tray) 75%);
+  box-shadow: inset 0 0 0 7px var(--tray-rim), inset 0 0 0 9px rgba(0,0,0,.1), 0 18px 24px -12px rgba(0,0,0,.4);
+}
+/* objects stand up on the tray and bob gently; their shadows stay on the tray */
+.hero3d .obj {
+  position: absolute; left: var(--x); top: var(--y); width: 19%; max-width: 104px; aspect-ratio: 1;
+  transform-origin: 50% 100%; transform: translate(-50%, -100%) rotateX(-58deg); transform-style: preserve-3d;
+}
+.hero3d .obj .ico3d { width: 100%; height: 100%; --i3sh: 0; animation: hero-bob 3.6s ease-in-out var(--d, 0s) infinite; }
+.hero3d .sh {
+  position: absolute; left: var(--x); top: var(--y); width: 15%; aspect-ratio: 2.2; border-radius: 50%;
+  transform: translate(-50%, -50%); background: radial-gradient(closest-side, rgba(0,0,0,.4), transparent);
+  animation: hero-shadow 3.6s ease-in-out var(--d, 0s) infinite;
+}
+/* a magnifying glass drifts over the tray, looking for what's missing */
+/* the icon itself moves (not its holder), so it keeps its own sharp layer */
+.hero3d .scan { position: absolute; left: 50%; top: 4%; width: min(18%, 88px); aspect-ratio: 1; transform-style: preserve-3d; }
+.hero3d .scan .ico3d { --i3sh: 0; filter: drop-shadow(0 30px 24px rgba(0,0,0,.25)); animation: hero-scan 9s ease-in-out infinite; }
+@keyframes hero-scan { 0%, 100% { transform: translate(110%, 0) rotate(-6deg); } 50% { transform: translate(-210%, 16%) rotate(8deg); } }
+
+/* ── Lobby: cards on a table in 3D, pairs turning over ── */
+:root { --felt: #2f6b52; --felt-hi: #46916f; --felt-rim: #8a6a35; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --felt: #1f4a39; --felt-hi: #2f6b52; --felt-rim: #6b4f1d; } }
+:root[data-theme="dark"] { --felt: #1f4a39; --felt-hi: #2f6b52; --felt-rim: #6b4f1d; }
+.hero3d .table {
+  position: absolute; left: 50%; top: 55%; width: min(80%, 470px); aspect-ratio: 2.1;
+  transform: translate(-50%, -50%) rotateX(56deg); transform-style: preserve-3d; border-radius: 20px;
+  display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); gap: 7% 4%; padding: 4.5% 5%;
+  background: radial-gradient(110% 90% at 30% 15%, var(--felt-hi), var(--felt) 75%);
+  box-shadow: inset 0 0 0 6px var(--felt-rim), inset 0 0 0 8px rgba(0,0,0,.15), 0 18px 24px -12px rgba(0,0,0,.4);
+}
+.hero3d .hc { position: relative; transform-style: preserve-3d; container-type: inline-size; }
+.hero3d .hc-in { position: absolute; inset: 0; transform-style: preserve-3d; animation: hc-flip 10s ease-in-out var(--d, 0s) infinite; }
+.hero3d .hc-back, .hero3d .hc-face {
+  position: absolute; inset: 0; border-radius: 12%;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  box-shadow: 0 3px 0 rgba(0,0,0,.35), 0 6px 10px rgba(0,0,0,.25);
+}
+.hero3d .hc-back {
+  --l: 6px;
+  background:
+    repeating-linear-gradient(45deg, transparent 0 var(--l), var(--back-line, rgba(196,144,48,.55)) var(--l) calc(var(--l) + 1px)),
+    repeating-linear-gradient(-45deg, transparent 0 var(--l), var(--back-line, rgba(196,144,48,.55)) var(--l) calc(var(--l) + 1px)),
+    linear-gradient(135deg, var(--back1, #1c2233), var(--back2, #263044));
+  border: 3px solid var(--back1, #1c2233);
+}
+.hero3d .hc-face { background: var(--card, #fff); transform: rotateY(180deg); }
+/* absolutely placed so the percentage size resolves against the card */
+.hero3d .hc-face .ico3d { position: absolute; inset: 11%; width: 78%; height: 78%; --i3sh: 0; }
+/* each card is face up for a short while; the two cards of a pair overlap, like a match being made */
+@keyframes hc-flip {
+  0%, 2% { transform: translateZ(0) rotateY(0); } 4% { transform: translateZ(55cqw) rotateY(90deg); }
+  6%, 21% { transform: translateZ(0) rotateY(180deg); } 23% { transform: translateZ(55cqw) rotateY(90deg); }
+  25%, 100% { transform: translateZ(0) rotateY(0); }
+}
+.hero3d .watch { position: absolute; right: 6%; top: 5%; width: min(18%, 84px); aspect-ratio: 1; transform-style: preserve-3d; }
+.hero3d .watch .ico3d { --i3sh: 0; filter: drop-shadow(0 30px 24px rgba(0,0,0,.25)); animation: hero-tick 2s ease-in-out infinite; }
+@keyframes hero-tick { 0%, 100% { transform: rotate(-7deg) translateY(0); } 50% { transform: rotate(7deg) translateY(-6%); } }
+@media (prefers-reduced-motion: reduce) { .hero3d .hc.pair .hc-in { transform: rotateY(180deg); } }
+
+/* ── Lobby: letter tiles in 3D (Asita's Word) ── */
+.hero3d .wordboard {
+  position: absolute; left: 50%; top: 55%; width: min(68%, 310px);
+  transform: translate(-50%, -50%) rotateX(50deg); transform-style: preserve-3d;
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; padding: 14px; border-radius: 16px;
+  background: radial-gradient(110% 90% at 30% 15%, var(--tray-hi), var(--tray) 75%);
+  box-shadow: inset 0 0 0 5px var(--tray-rim), 0 18px 24px -12px rgba(0,0,0,.4);
+}
+.hero3d .wt {
+  aspect-ratio: 1; display: grid; place-items: center; border-radius: 12%;
+  font: 700 clamp(14px, 3.6vw, 24px)/1 'DM Sans', system-ui, sans-serif; color: #fff;
+  box-shadow: 0 3px 0 rgba(0,0,0,.28);
+}
+.hero3d .wt.correct { background: #3e8a62; }
+.hero3d .wt.present { background: #c49030; }
+.hero3d .wt.absent { background: #85847e; }
+/* the answer row turns over tile by tile, then starts again */
+.hero3d .wt.turn { background: var(--card, #fff); color: #1e1a12; animation: wt-turn 7s ease-in-out var(--d, 0s) infinite; }
+@keyframes wt-turn {
+  0%, 8% { transform: rotateX(0); background: var(--card, #fff); color: #1e1a12; }
+  11% { transform: rotateX(90deg); background: var(--card, #fff); color: #1e1a12; }
+  11.1% { transform: rotateX(90deg); background: #3e8a62; color: #fff; }
+  14%, 80% { transform: rotateX(0); background: #3e8a62; color: #fff; }
+  83% { transform: rotateX(90deg); background: #3e8a62; color: #fff; }
+  83.1% { transform: rotateX(90deg); background: var(--card, #fff); color: #1e1a12; }
+  86%, 100% { transform: rotateX(0); background: var(--card, #fff); color: #1e1a12; }
+}
+@media (prefers-reduced-motion: reduce) { .hero3d .wt.turn { background: #3e8a62; color: #fff; } }
+
+/* ── Lobby: a T piece falls into a little well and completes the bottom row (Asita's Blocks) ── */
+.hero3d .blockwell {
+  --bI: #36b3d6; --bJ: #3f6fd8; --bL: #ec8a2c; --bO: #efbf2c; --bS: #43ab66; --bT: #9a5cc4; --bZ: #e1513c;
+  position: absolute; left: 50%; top: 52%; width: min(44%, 210px); aspect-ratio: 8 / 6;
+  transform: translate(-50%, -50%) rotateX(22deg); transform-style: preserve-3d;
+  border-radius: 10px; background: #1c2233; box-shadow: 0 0 0 4px #c49030, 0 22px 26px -14px rgba(0,0,0,.5);
+  overflow: hidden;
+}
+.hero3d .bc {
+  position: absolute; left: calc(var(--x) * 12.5%); top: calc(var(--y) * 16.6667%); width: 12.5%; height: 16.6667%;
+  border-radius: 18%; background: linear-gradient(135deg, rgba(255,255,255,.38), rgba(255,255,255,0) 55%, rgba(0,0,0,.25)), var(--c);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.22);
+}
+.hero3d .bfall { position: absolute; left: 37.5%; top: 66.6667%; width: 37.5%; height: 33.3333%; animation: bw-fall 6s infinite; }
+.hero3d .bfall .bc { left: calc(var(--x) * 33.3333%); top: calc(var(--y) * 50%); width: 33.3333%; height: 50%; }
+@keyframes bw-fall {
+  0% { transform: translateY(-200%); opacity: 0; animation-timing-function: steps(1, end); }
+  6% { transform: translateY(-200%); opacity: 1; animation-timing-function: steps(1, end); }
+  14% { transform: translateY(-150%); animation-timing-function: steps(1, end); }
+  22% { transform: translateY(-100%); animation-timing-function: steps(1, end); }
+  30% { transform: translateY(-50%); animation-timing-function: steps(1, end); }
+  38%, 86% { transform: translateY(0); opacity: 1; }
+  94%, 100% { transform: translateY(0); opacity: 0; }
+}
+/* the full bottom row flashes */
+.hero3d .bc.fl { animation: bw-flash 6s infinite; }
+@keyframes bw-flash { 0%, 42% { filter: none; } 48%, 60% { filter: brightness(2.4) saturate(.3); } 66%, 100% { filter: none; } }
+@media (prefers-reduced-motion: reduce) { .hero3d .bfall { transform: none; opacity: 1; } }

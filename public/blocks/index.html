@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- the page is served at /blocks; relative links resolve inside its folder -->
+<base href="/blocks/">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Asita's Blocks</title>
+<meta name="description" content="Asita's Blocks: a falling block puzzle. Turn and slide the falling pieces to fill whole rows, which then clear. The game speeds up as you go. How long can you keep going?">
+<meta name="theme-color" content="#f7f4ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141824" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Asita's Games">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="icon" href="/shared/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/shared/icon-180.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="/shared/lobby3d.css">
+<link rel="stylesheet" href="/shared/platform.css">
+</head>
+<body>
+<script src="/shared/lobby3d.js"></script>
+<div class="wrap">
+  <header>
+    <nav class="platform-bar" aria-label="Asita's Games">
+      <a class="pb-home" href="/"><span aria-hidden="true">←</span> All games</a>
+      <span class="pb-others">
+        <a class="pb-switch" href="/game" aria-label="Play Asita's Game"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-magnifier"/></svg><span class="pb-name">Asita's Game</span></a>
+        <a class="pb-switch" href="/match" aria-label="Play Asita's Match"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-stopwatch"/></svg><span class="pb-name">Asita's Match</span></a>
+        <a class="pb-switch" href="/word" aria-label="Play Asita's Word"><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-word"/></svg><span class="pb-name">Asita's Word</span></a>
+      </span>
+    </nav>
+    <div class="title-row">
+      <div>
+        <div class="eyebrow">A falling block puzzle</div>
+        <h1>Asita's <em>Blocks</em></h1>
+      </div>
+      <div class="tools">
+        <button class="icon-btn" id="helpBtn" type="button" aria-label="How to play">?</button>
+        <button class="icon-btn" id="settingsBtn" type="button" aria-label="Settings"><span aria-hidden="true">⚙</span></button>
+        <button class="icon-btn" id="pauseBtn" type="button" aria-label="Pause" disabled><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="2" width="3.6" height="12" rx="1" fill="currentColor"/><rect x="9.4" y="2" width="3.6" height="12" rx="1" fill="currentColor"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="play">
+    <div class="pad pad-move" role="group" aria-label="Move">
+      <button class="pbtn" type="button" data-act="left" aria-label="Move left" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7" /></svg></button>
+      <button class="pbtn" type="button" data-act="right" aria-label="Move right" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" /></svg></button>
+      <button class="pbtn" type="button" data-act="soft" aria-label="Move down" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7" /></svg></button>
+      <button class="pbtn" type="button" data-act="hard" aria-label="Drop" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 5l6 6 6-6M6 11l6 6 6-6" /><path d="M5 20h14" /></svg></button>
+    </div>
+
+    <div class="stage-area" id="stageArea">
+      <div class="stage" id="stage">
+        <section class="panel hold" aria-label="Held piece">
+          <h2>Hold</h2>
+          <canvas id="holdCv" aria-hidden="true"></canvas>
+        </section>
+        <section class="panel stats" aria-label="Score">
+          <dl>
+            <div><dt>Score</dt><dd id="score">0</dd></div>
+            <div><dt>Level</dt><dd id="level">1</dd></div>
+            <div><dt>Rows</dt><dd id="lines">0</dd></div>
+            <div class="best-row"><dt>Best</dt><dd id="best">0</dd></div>
+          </dl>
+        </section>
+        <div class="well" id="well">
+          <canvas id="boardCv" role="img" aria-label="The board"></canvas>
+          <div class="overlay" id="overlay">
+            <div class="ov-card" id="ovStart">
+              <h2>Ready?</h2>
+              <p class="ov-text">Fill whole rows to clear them. Don't let the blocks reach the top.</p>
+              <div class="level-pick">
+                <span id="startLabel">Start at level</span>
+                <div class="stepper" role="group" aria-labelledby="startLabel">
+                  <button type="button" id="lvlDown" aria-label="Lower start level">−</button>
+                  <output id="startLevel" aria-live="polite">1</output>
+                  <button type="button" id="lvlUp" aria-label="Higher start level">+</button>
+                </div>
+              </div>
+              <button class="btn" id="playBtn" type="button">Play</button>
+              <p class="ov-best" id="ovBest" hidden></p>
+            </div>
+            <div class="ov-card" id="ovPause" hidden>
+              <h2>Paused</h2>
+              <button class="btn" id="resumeBtn" type="button">Resume</button>
+              <button class="btn ghost" id="quitBtn" type="button">New game</button>
+            </div>
+            <div class="ov-card" id="ovOver" hidden>
+              <h2>Game over</h2>
+              <p class="ov-new" id="ovNew" hidden>New best score!</p>
+              <p class="ov-score" id="ovScore"></p>
+              <p class="ov-text" id="ovDetail"></p>
+              <button class="btn" id="againBtn" type="button">Play again</button>
+              <button class="btn ghost" id="levelBtn" type="button">Change level</button>
+            </div>
+          </div>
+        </div>
+        <section class="panel next" aria-label="Next pieces">
+          <h2>Next</h2>
+          <canvas id="nextCv" aria-hidden="true"></canvas>
+        </section>
+      </div>
+    </div>
+
+    <div class="pad pad-turn" role="group" aria-label="Turn and hold">
+      <button class="pbtn" type="button" data-act="hold" aria-label="Hold" tabindex="-1"><span class="pbtn-text">Hold</span></button>
+      <button class="pbtn" type="button" data-act="ccw" aria-label="Turn left" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 4H4v5" /><path d="M4.6 8.4A8 8 0 1 1 6 17.5" /></svg></button>
+      <button class="pbtn" type="button" data-act="cw" aria-label="Turn right" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 4h5v5" /><path d="M19.4 8.4A8 8 0 1 0 18 17.5" /></svg></button>
+    </div>
+  </main>
+  <p class="keys-hint" id="keysHint"><kbd>←</kbd><kbd>→</kbd> move · <kbd>↓</kbd> down · <kbd>Space</kbd> drop · <kbd>↑</kbd> or <kbd>X</kbd> turn · <kbd>Z</kbd> turn back · <kbd>C</kbd> hold · <kbd>P</kbd> pause</p>
+</div>
+
+<div class="toasts" id="toasts" aria-hidden="true"></div>
+<div class="sr-only" id="announcer" aria-live="polite"></div>
+
+<!-- How to play -->
+<dialog class="sheet" id="helpDlg" aria-labelledby="helpTitle">
+  <button class="close" type="button" aria-label="Close" data-close>×</button>
+  <h2 id="helpTitle">How to play</h2>
+  <p>Pieces made of four blocks fall into the well one at a time. Slide and turn each piece as it falls. When a row is full from side to side, it clears and the blocks above move down.</p>
+  <p>Every 10 rows you clear, the level goes up and the pieces fall faster. The game ends when the blocks stack up to the top.</p>
+  <h3 class="sub">On a phone or tablet</h3>
+  <ul class="help-list">
+    <li>Use the buttons, or touch the board: <b>tap</b> to turn, <b>drag</b> left, right or down to move, and <b>flick down</b> to drop.</li>
+    <li><b>Hold</b> puts the piece aside for later, once per piece. Tapping the Hold box does the same.</li>
+  </ul>
+  <h3 class="sub">On a keyboard</h3>
+  <ul class="help-list keys">
+    <li><span><kbd>←</kbd> <kbd>→</kbd></span>Move</li>
+    <li><span><kbd>↓</kbd></span>Move down faster</li>
+    <li><span><kbd>Space</kbd></span>Drop straight down</li>
+    <li><span><kbd>↑</kbd> <kbd>X</kbd></span>Turn right</li>
+    <li><span><kbd>Z</kbd></span>Turn left</li>
+    <li><span><kbd>C</kbd> <kbd>Shift</kbd></span>Hold</li>
+    <li><span><kbd>P</kbd> <kbd>Esc</kbd></span>Pause</li>
+  </ul>
+  <h3 class="sub">Points</h3>
+  <table class="points">
+    <tr><td>1 row</td><td>100</td><td>2 rows</td><td>300</td></tr>
+    <tr><td>3 rows</td><td>500</td><td>4 rows</td><td>800</td></tr>
+  </table>
+  <p class="small">Points are multiplied by the level. Clearing rows with pieces in a row adds a combo bonus, and clearing 4 rows twice running (or turning a T piece into a tight gap) scores half as much again. Dropping a piece earns a point or two for each row it falls.</p>
+</dialog>
+
+<!-- Settings -->
+<dialog class="sheet" id="settingsDlg" aria-labelledby="settingsTitle">
+  <button class="close" type="button" aria-label="Close" data-close>×</button>
+  <h2 id="settingsTitle">Settings</h2>
+  <label class="setting">
+    <span><b>Ghost piece</b><small>Shows where the falling piece will land.</small></span>
+    <input type="checkbox" id="ghostSet" role="switch">
+  </label>
+  <label class="setting">
+    <span><b>On-screen buttons</b><small>Buttons to move, turn and drop. Useful on a touch screen.</small></span>
+    <input type="checkbox" id="padSet" role="switch">
+  </label>
+</dialog>
+
+<script src="game.js"></script>
+</body>
+</html>

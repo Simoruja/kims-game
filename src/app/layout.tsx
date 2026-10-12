@@ -1,37 +1,25 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
-  title: "Kim's Game",
+  title: { default: "Asita's Games", template: "%s · Asita's Games" },
   description:
-    "A memory game that tests how well you can spot what's new in a tray of emoji, shapes, numbers, letters, and colors.",
+    "Memory, word and puzzle games for phones, tablets and computers: Asita's Game, Asita's Match, Asita's Word and Asita's Blocks.",
   manifest: "/manifest.webmanifest",
+  icons: { icon: "/shared/icon.svg", apple: "/shared/icon-180.png" },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#7c3aed",
+  themeColor: "#1c2233",
 };
 
+// The home page and the games are static pages in public/ (see next.config.ts).
+// Next.js itself only renders the manifest and the 404 page.
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en">
+      <body>{children}</body>
     </html>
   );
 }
