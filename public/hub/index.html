@@ -6,7 +6,7 @@
 <base href="/hub/">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Asita's Games</title>
-<meta name="description" content="Asita's Games: memory and word games for phones, tablets and computers. Play Asita's Game, a rendition of Kim's game, Asita's Match, a card matching game against the clock, or Asita's Word, a five-letter word guessing game.">
+<meta name="description" content="Asita's Games: memory, word and puzzle games for phones, tablets and computers. Play Asita's Game, a rendition of Kim's game, Asita's Match, a card matching game against the clock, Asita's Word, a five-letter word guessing game, or Asita's Blocks, a falling block puzzle.">
 <meta name="theme-color" content="#f7f4ee" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#141824" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -26,9 +26,9 @@
 <script src="/shared/lobby3d.js"></script>
 <div class="wrap">
   <header class="hub-head">
-    <div class="eyebrow">Memory and word games</div>
+    <div class="eyebrow">Memory, word and puzzle games</div>
     <h1>Asita's <em>Games</em></h1>
-    <p class="lead">Three games that put your memory and wits to the test. Study a tray of objects and spot what has changed, find every matching pair against the clock, or guess the hidden word in six tries. Play on a phone, tablet or computer.</p>
+    <p class="lead">Four games that put your memory and wits to the test. Study a tray of objects and spot what has changed, find every matching pair against the clock, guess the hidden word in six tries, or stack falling blocks to clear rows. Play on a phone, tablet or computer.</p>
   </header>
 
   <main class="games">
@@ -106,6 +106,25 @@
         </ul>
         <p class="best" id="bestWord">No words played on this device yet.</p>
         <a class="play" href="/word">Play Asita's Word</a>
+      </div>
+    </article>
+    <article class="game-card">
+      <div class="hero3d" aria-hidden="true">
+        <div class="scene"><div class="sway">
+          <div class="blockwell"><i class="bc" style="--x:0;--y:4;--c:var(--bS)"></i><i class="bc" style="--x:1;--y:4;--c:var(--bS)"></i><i class="bc" style="--x:6;--y:4;--c:var(--bL)"></i><i class="bc" style="--x:7;--y:4;--c:var(--bL)"></i><i class="bc fl" style="--x:0;--y:5;--c:var(--bJ)"></i><i class="bc fl" style="--x:1;--y:5;--c:var(--bS)"></i><i class="bc fl" style="--x:2;--y:5;--c:var(--bS)"></i><i class="bc fl" style="--x:3;--y:5;--c:var(--bI)"></i><i class="bc fl" style="--x:5;--y:5;--c:var(--bO)"></i><i class="bc fl" style="--x:6;--y:5;--c:var(--bO)"></i><i class="bc fl" style="--x:7;--y:5;--c:var(--bL)"></i><i class="bc" style="--x:0;--y:3;--c:var(--bZ)"></i><i class="bc" style="--x:7;--y:3;--c:var(--bJ)"></i><span class="bfall"><i class="bc" style="--x:0;--y:0;--c:var(--bT)"></i><i class="bc" style="--x:1;--y:0;--c:var(--bT)"></i><i class="bc" style="--x:2;--y:0;--c:var(--bT)"></i><i class="bc fl" style="--x:1;--y:1;--c:var(--bT)"></i></span></div>
+        </div></div>
+      </div>
+      <div class="gc-body">
+        <div class="eyebrow">A falling block puzzle</div>
+        <h2>Asita's <em>Blocks</em></h2>
+        <p class="gc-text">Slide and turn the falling pieces to fill whole rows, which then clear. The pieces fall faster as you go, so how long can you keep going?</p>
+        <ul class="chips">
+          <li><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-blocks"/></svg>Seven pieces</li>
+          <li><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-hard"/></svg>Faster each level</li>
+          <li><svg class="ico3d" aria-hidden="true" focusable="false"><use href="#i3-star"/></svg>Hold and combos</li>
+        </ul>
+        <p class="best" id="bestBlocks">No games played on this device yet.</p>
+        <a class="play" href="/blocks">Play Asita's Blocks</a>
       </div>
     </article>
   </main>

@@ -41,4 +41,10 @@
     document.getElementById('bestWord').innerHTML =
       `Words found: <b>${won}</b> of ${played}${streak}`;
   }
+  // Asita's Blocks saves its best game as blocks-best.
+  const bb = read('blocks-best');
+  if (bb && typeof bb.score === 'number' && bb.score > 0) {
+    document.getElementById('bestBlocks').innerHTML =
+      `Your best: <b>${bb.score.toLocaleString()} points</b> · ${+bb.lines || 0} rows · level ${+bb.level || 1}`;
+  }
 })();

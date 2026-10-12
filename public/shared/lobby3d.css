@@ -197,3 +197,32 @@
   86%, 100% { transform: rotateX(0); background: var(--card, #fff); color: #1e1a12; }
 }
 @media (prefers-reduced-motion: reduce) { .hero3d .wt.turn { background: #3e8a62; color: #fff; } }
+
+/* ── Lobby: a T piece falls into a little well and completes the bottom row (Asita's Blocks) ── */
+.hero3d .blockwell {
+  --bI: #36b3d6; --bJ: #3f6fd8; --bL: #ec8a2c; --bO: #efbf2c; --bS: #43ab66; --bT: #9a5cc4; --bZ: #e1513c;
+  position: absolute; left: 50%; top: 52%; width: min(44%, 210px); aspect-ratio: 8 / 6;
+  transform: translate(-50%, -50%) rotateX(22deg); transform-style: preserve-3d;
+  border-radius: 10px; background: #1c2233; box-shadow: 0 0 0 4px #c49030, 0 22px 26px -14px rgba(0,0,0,.5);
+  overflow: hidden;
+}
+.hero3d .bc {
+  position: absolute; left: calc(var(--x) * 12.5%); top: calc(var(--y) * 16.6667%); width: 12.5%; height: 16.6667%;
+  border-radius: 18%; background: linear-gradient(135deg, rgba(255,255,255,.38), rgba(255,255,255,0) 55%, rgba(0,0,0,.25)), var(--c);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.22);
+}
+.hero3d .bfall { position: absolute; left: 37.5%; top: 66.6667%; width: 37.5%; height: 33.3333%; animation: bw-fall 6s infinite; }
+.hero3d .bfall .bc { left: calc(var(--x) * 33.3333%); top: calc(var(--y) * 50%); width: 33.3333%; height: 50%; }
+@keyframes bw-fall {
+  0% { transform: translateY(-200%); opacity: 0; animation-timing-function: steps(1, end); }
+  6% { transform: translateY(-200%); opacity: 1; animation-timing-function: steps(1, end); }
+  14% { transform: translateY(-150%); animation-timing-function: steps(1, end); }
+  22% { transform: translateY(-100%); animation-timing-function: steps(1, end); }
+  30% { transform: translateY(-50%); animation-timing-function: steps(1, end); }
+  38%, 86% { transform: translateY(0); opacity: 1; }
+  94%, 100% { transform: translateY(0); opacity: 0; }
+}
+/* the full bottom row flashes */
+.hero3d .bc.fl { animation: bw-flash 6s infinite; }
+@keyframes bw-flash { 0%, 42% { filter: none; } 48%, 60% { filter: brightness(2.4) saturate(.3); } 66%, 100% { filter: none; } }
+@media (prefers-reduced-motion: reduce) { .hero3d .bfall { transform: none; opacity: 1; } }

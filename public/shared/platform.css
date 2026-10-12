@@ -1,6 +1,7 @@
 /* Asita's Games: the bar at the top of each game that links back to the home page and across to the
-   other game. Uses each page's own colour tokens. */
+   other games. Uses each page's own colour tokens. */
 .platform-bar {
+  container-type: inline-size;
   display: flex; align-items: center; justify-content: space-between; gap: 10px;
   margin: 0 0 18px; text-align: left;
 }
@@ -15,6 +16,6 @@
 .platform-bar a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 @media (hover: hover) { .platform-bar a:hover { border-color: var(--gold); transform: translateY(-1px); } }
 @media (max-width: 380px) { .platform-bar a { padding: 6px 10px; font-size: 13px; } }
-/* narrow screens: the other games show as icons only (their names stay in aria-label) */
-@media (max-width: 560px) { .pb-name { display: none; } .pb-switch { padding: 6px 8px; } }
+/* when the bar is narrow, the other games show as icons only (their names stay in aria-label) */
+@container (max-width: 640px) { .pb-name { display: none; } .pb-switch { padding: 6px 8px; } }
 @media (prefers-reduced-motion: reduce) { .platform-bar a { transition: none; } }

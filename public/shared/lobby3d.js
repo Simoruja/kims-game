@@ -22,6 +22,7 @@
   const AMBER_DARK = ['#f5c96a', '#d9900f', '#a3660a'];
   const RED   = ['#ffb3a3', '#e8573f', '#ad3422'];
   const BLUE  = ['#9fd3ff', '#3a8fe0', '#2160a6'];
+  const PURPLE = ['#e2c6f7', '#a066cc', '#6d3a95'];
 
   // Gear outline with n teeth, used for "Custom".
   function gear(cx, cy, n, rOut, rIn) {
@@ -150,6 +151,8 @@
       `<polygon points="33.5,10.5 39.6,24.4 54.7,25.8 43.3,35.8 46.6,50.6 33.5,42.9 20.4,50.6 23.7,35.8 12.3,25.8 27.4,24.4" fill="#a8740c"/>` +
       `<polygon points="32,8 38.1,21.9 53.2,23.3 41.8,33.3 45.1,48.1 32,40.4 18.9,48.1 22.2,33.3 10.8,23.3 25.9,21.9" fill="url(#i3g-gold)"/>` +
       `<path d="M32 13l4.4 10.2" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".7"/>`,
+    // a T piece made of four cubes (Asita's Blocks)
+    blocks: shadow(32, 54, 22) + [[0, 0], [1, 0], [2, 0], [1, 1]].map(([i, j]) => cube(22 + (i - j) * 10, 17 + (i + j) * 5, 10, PURPLE)).join(''),
     board4: board(4), board5: board(5), board6: board(6), board7: board(7), board8: board(8),
   };
 
